@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FY2025-26 Income Tax Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+        .calculator-container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 30px;
+            background-color: #ffebcd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffa07a;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #d2691e;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 16px;
+            text-align: center;
+            color: #d2691e;
+            margin-bottom: 20px;
+        }
+        .toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4500;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #a0522d;
+        }
+        .asterisk {
+            color: #ff4500;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #ff7f50;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #ff4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e63946;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0ffff;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ececec;
+        }
+        .output p {
+            margin: 12px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 8px;
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .output span {
+            font-weight: bold;
+        }
+        .highlight-red {
+            color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>FY2025-26 Income Tax Calculator</h1>
+        <h2>Income tax calculator for FY25-26 based on new tax regime only for now. More options to be available soon. Thanks for being part of this testing phase :)</h2>
+        <button class="toggle" onclick="toggleLingo()">Toggle Lingo</button>
+        <form id="taxForm">
+            <label for="income" id="incomeLabel">Annual Gross Salary<span class="asterisk">*</span>:</label>
+            <input type="number" id="income" required>
+
+            <button type="button" onclick="calculateTax()">Calculate Tax</button>
+        </form>
+
+        <div class="output" id="results">
+            <p id="totalIncomeLabel">Total Annual Income: <span id="totalIncome"></span></p>
+            <p id="standardDeductionLabel">Standard Deduction: <span id="standardDeduction"></span></p>
+            <p id="taxLiabilityLabel">Tax Liability: <span id="taxLiability" class="highlight-red"></span></p>
+            <p id="taxRebateLabel">Tax Rebate: <span id="taxRebate"></span></p>
+            <p id="cessLabel">Cess: <span id="cess" class="highlight-red"></span></p>
+            <p id="surchargeLabel">Rich Tax (Surcharge): <span id="surcharge" class="highlight-red"></span></p>
+            <p id="totalTaxLabel">Total Tax Payable: <span id="totalTax" class="highlight-red"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('income').value);
+            const standardDeduction = 75000; // Standard deduction
+            let taxLiability = 0;
+            let surcharge = 0;
+
+            // Calculate taxable income
+            let taxableIncome = income - standardDeduction;
+            if (taxableIncome < 0) {
+                taxableIncome = 0; // Avoid negative taxable income
+            }
+
+            // Calculate tax normally
+            if (taxableIncome > 2400000) {
+                taxLiability += (taxableIncome - 2400000) * 0.30;
+                taxableIncome = 2400000;
+            }
+            if (taxableIncome > 2000000) {
+                taxLiability += (taxableIncome - 2000000) * 0.25;
+                taxableIncome = 2000000;
+            }
+            if (taxableIncome > 1600000) {
+                taxLiability += (taxableIncome - 1600000) * 0.20;
+                taxableIncome = 1600000;
+            }
+            if (taxableIncome > 1200000) {
+                taxLiability += (taxableIncome - 1200000) * 0.15;
+                taxableIncome = 1200000;
+            }
+            if (taxableIncome > 800000) {
+                taxLiability += (taxableIncome - 800000) * 0.10;
+                taxableIncome = 800000;
+            }
+            if (taxableIncome > 400000) {
+                taxLiability += (taxableIncome - 400000) * 0.05;
+            }
+
+            const cess = taxLiability * 0.04; // Applying 4% cess
+            surcharge = calculateSurcharge(income, taxLiability);
+
+            const totalTax = taxLiability + cess + surcharge;
+
+            // Display results
+            document.getElementById('totalIncome').innerText = income.toFixed(2);
+            document.getElementById('standardDeduction').innerText = standardDeduction.toFixed(2);
+            document.getElementById('taxLiability').innerText = taxLiability.toFixed(2);
+            document.getElementById('cess').innerText = cess.toFixed(2);
+            document.getElementById('surcharge').innerText = surcharge.toFixed(2);
+            document.getElementById('totalTax').innerText = totalTax.toFixed(2);
+        }
+
+        function calculateSurcharge(income, taxLiability) {
+            let surcharge = 0;
+            if (income > 5000000 && income < 10000000) {
+                surcharge = taxLiability * 0.10;
+            } else if (income >= 10000000 && income < 20000000) {
+                surcharge = taxLiability * 0.15;
+            } else if (income >= 20000000) {
+                surcharge = taxLiability * 0.25;
+            }
+            return surcharge;
+        }
+
+        function toggleLingo() {
+            const toggleState = document.getElementById('incomeLabel').textContent.includes('Bread');
+
+            document.getElementById('incomeLabel').innerHTML = toggleState
+                ? 'Annual Gross Salary<span class="asterisk">*</span>:'
+                : 'Bread<span class="asterisk">*</span>:';
+            document.getElementById('totalIncomeLabel').innerHTML = toggleState
+                ? 'Total Annual Income:'
+                : 'Delulu bread:';
+            document.getElementById('standardDeductionLabel').innerHTML = toggleState
+                ? 'Standard Deduction:'
+                : 'Green flag:';
+            document.getElementById('taxLiabilityLabel').innerHTML = toggleState
+                ? 'Tax Liability:'
+                : 'Red flag:';
+            document.getElementById('taxRebateLabel').innerHTML = toggleState
+                ? 'Tax Rebate:'
+                : 'Green flag Lit:';
+            document.getElementById('cessLabel').innerHTML = toggleState
+                ? 'Cess:'
+                : 'Extra:';
+            document.getElementById('surchargeLabel').innerHTML = toggleState
+                ? 'Rich Tax (Surcharge):'
+                : 'Super extra:';
+            document.getElementById('totalTaxLabel').innerHTML = toggleState
+                ? 'Total Tax Payable:'
+                : 'Savage:';
+        }
+    </script>
+</body>
+</html>
