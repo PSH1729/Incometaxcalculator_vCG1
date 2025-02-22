@@ -138,13 +138,13 @@
             let taxLiability = 0;
             let taxRebate = 0;
             let surcharge = 0;
-
+        
             // Calculate taxable income
             let taxableIncome = income - standardDeduction;
             if (taxableIncome < 0) {
                 taxableIncome = 0; // Avoid negative taxable income
             }
-
+        
             // Calculate tax normally
             if (taxableIncome > 2400000) {
                 taxLiability += (taxableIncome - 2400000) * 0.30;
@@ -169,28 +169,22 @@
             if (taxableIncome > 400000) {
                 taxLiability += (taxableIncome - 400000) * 0.05;
             }
-
+        
              // Apply tax rebate if taxable income is less than or equal to 12 lakhs
             if (income - standardDeduction <= 1200000) {
                 taxRebate = taxLiability;
                 taxLiability = 0; // Final payable tax should be zero
             }
             const cess = taxLiability * 0.04;
-
+        
             surcharge = calculateSurcharge(income, taxLiability);
-
+        
             const totalTax = taxLiability + cess + surcharge;
-
+        
             // Display results
-            document.getElementById('totalIncome').innerText = income.toFixed(2);
-            document.getElementById('standardDeduction').innerText = standardDeduction.toFixed(2);
-            document.getElementById('taxLiability').innerText = (taxLiability + taxRebate).toFixed(2);
-            document.getElementById('taxRebate').innerText = taxRebate.toFixed(2);
-            document.getElementById('cess').innerText = cess.toFixed(2);
-            document.getElementById('surcharge').innerText = surcharge.toFixed(2);
-            document.getElementById('totalTax').innerText = totalTax.toFixed(2);
+            displayResults(income, standardDeduction, taxLiability, taxRebate, cess, surcharge, totalTax);
         }
-
+        
         function calculateSurcharge(income, taxLiability) {
             let surcharge = 0;
             if (income > 5000000 && income < 10000000) {
@@ -203,31 +197,41 @@
             return surcharge;
         }
 
+        function displayResults(income, standardDeduction, taxLiability, taxRebate, cess, surcharge, totalTax) {
+            document.getElementById('totalIncome').innerText = income.toFixed(2);
+            document.getElementById('standardDeduction').innerText = standardDeduction.toFixed(2);
+            document.getElementById('taxLiability').innerText = (taxLiability + taxRebate).toFixed(2);
+            document.getElementById('taxRebate').innerText = taxRebate.toFixed(2);
+            document.getElementById('cess').innerText = cess.toFixed(2);
+            document.getElementById('surcharge').innerText = surcharge.toFixed(2);
+            document.getElementById('totalTax').innerText = totalTax.toFixed(2);
+        }
+
         function toggleLingo() {
             const toggleState = document.getElementById('incomeLabel').textContent.includes('Bread');
 
-            document.getElementById('incomeLabel').innerHTML = toggleState
-                ? 'Annual Gross Salary<span class="asterisk">*</span>:'
-                : 'Bread<span class="asterisk">*</span>:';
-            document.getElementById('totalIncomeLabel').innerHTML = toggleState
+            document.getElementById('incomeLabel').textContent = toggleState
+                ? 'Annual Gross Salary*'
+                : 'Bread*';
+            document.getElementById('totalIncomeLabel').textContent = toggleState
                 ? 'Total Annual Income:'
                 : 'Delulu bread:';
-            document.getElementById('standardDeductionLabel').innerHTML = toggleState
+            document.getElementById('standardDeductionLabel').textContent = toggleState
                 ? 'Standard Deduction:'
                 : 'Green flag:';
-            document.getElementById('taxLiabilityLabel').innerHTML = toggleState
+            document.getElementById('taxLiabilityLabel').textContent = toggleState
                 ? 'Tax Liability:'
                 : 'Red flag:';
-            document.getElementById('taxRebateLabel').innerHTML = toggleState
+            document.getElementById('taxRebateLabel').textContent = toggleState
                 ? 'Tax Rebate:'
                 : 'Green flag Lit:';
-            document.getElementById('cessLabel').innerHTML = toggleState
+            document.getElementById('cessLabel').textContent = toggleState
                 ? 'Cess:'
                 : 'Extra:';
-            document.getElementById('surchargeLabel').innerHTML = toggleState
+            document.getElementById('surchargeLabel').textContent = toggleState
                 ? 'Rich Tax (Surcharge):'
                 : 'Super extra:';
-            document.getElementById('totalTaxLabel').innerHTML = toggleState
+            document.getElementById('totalTaxLabel').textContent = toggleState
                 ? 'Total Tax Payable:'
                 : 'Savage:';
         }
