@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
+            background-color: #e6e6fa; /* Lavender background */
             color: #333;
             margin: 0;
             padding: 20px;
@@ -18,24 +18,24 @@
         }
         .calculator-container {
             max-width: 480px;
-            background-color: #f8f8ff;
+            background-color: #f8f8ff; /* GhostWhite background */
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            border: 2px solid #9370db;
+            border: 2px solid #c6a3cc; /* Light Lavender border */
             padding: 25px;
             transition: background-color 0.5s, border-color 0.5s;
         }
         h1 {
             font-size: 22px;
             text-align: center;
-            color: #4b0082;
+            color: #4b0082; /* Indigo text */
             margin-bottom: 10px;
             transition: color 0.5s;
         }
         h2 {
             font-size: 14px;
             text-align: center;
-            color: #4b0082;
+            color: #4b0082; /* Indigo text */
             margin-bottom: 10px;
             transition: color 0.5s;
         }
@@ -46,6 +46,8 @@
         .toggle-label {
             margin-right: 10px;
             font-weight: bold;
+            color: #4b0082; /* Indigo text */
+            transition: color 0.5s;
         }
         .toggle {
             display: inline-block;
@@ -59,7 +61,7 @@
         .toggle-switch {
             position: absolute;
             cursor: pointer;
-            background-color: #9370db;
+            background-color: #c6a3cc; /* Light Lavender for switch */
             border-radius: 26px;
             transition: 0.4s;
             width: 100%;
@@ -78,7 +80,7 @@
             transition: 0.4s;
         }
         input:checked + .toggle-switch {
-            background-color: #ff69b4;
+            background-color: #9370db; /* Medium Purple */
         }
         input:checked + .toggle-switch:before {
             transform: translateX(24px);
@@ -91,10 +93,11 @@
             margin-bottom: 5px;
             font-weight: bold;
             font-size: 14px;
+            color: #4b0082; /* Indigo text */
             transition: color 0.5s;
         }
         .asterisk {
-            color: #c71585;
+            color: #8a2be2; /* BlueViolet asterisk */
         }
         input[type="text"], input[type="number"] {
             width: 100%;
@@ -107,14 +110,14 @@
             font-size: 14px;
         }
         input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #9370db;
-            background-color: #f0f8ff;
+            border-color: #9370db; /* Medium Purple on focus */
+            background-color: #ffffff; /* White background */
         }
         button {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #4b0082;
+            background-color: #4b0082; /* Indigo button */
             color: #fff;
             border: none;
             border-radius: 6px;
@@ -124,12 +127,12 @@
             margin-bottom: 10px;
         }
         button:hover {
-            background-color: #8a2be2;
+            background-color: #8a2be2; /* BlueViolet hover */
         }
         .output {
             margin-top: 10px;
             padding: 10px;
-            background-color: #f0fff0;
+            background-color: #f0f8ff; /* AliceBlue background */
             border-radius: 10px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid #ececec;
@@ -253,12 +256,12 @@
         function toggleLingo() {
             const toggleState = document.getElementById('lingoToggle').checked;
 
-            document.body.style.backgroundColor = toggleState ? '#ffd700' : '#ffffff';
-            document.body.style.color = toggleState ? '#000' : '#333';
-            document.querySelector('.calculator-container').style.backgroundColor = toggleState ? '#ffdead' : '#f8f8ff';
-            document.querySelector('.calculator-container').style.borderColor = toggleState ? '#cd853f' : '#9370db';
-            document.querySelector('h1').style.color = toggleState ? '#8b4513' : '#4b0082';
-            document.querySelector('h2').style.color = toggleState ? '#8b4513' : '#4b0082';
+            document.body.style.backgroundColor = toggleState ? '#e0bbe4' : '#e6e6fa'; // Light lavender vs brighter lavender
+            document.body.style.color = toggleState ? '#4b0082' : '#333';
+            document.querySelector('.calculator-container').style.backgroundColor = toggleState ? '#dcd6f7' : '#f8f8ff';
+            document.querySelector('.calculator-container').style.borderColor = toggleState ? '#a39193' : '#c6a3cc';
+            document.querySelector('h1').style.color = toggleState ? '#5c3d5e' : '#4b0082';
+            document.querySelector('h2').style.color = toggleState ? '#5c3d5e' : '#4b0082';
 
             document.getElementById('incomeLabel').textContent = toggleState
                 ? 'Bread*'
