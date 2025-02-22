@@ -22,7 +22,7 @@
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             border: 2px solid #c6a3cc; /* Light Lavender border */
-            padding: 25px;
+            padding: 25px 20px;
             transition: background-color 0.5s, border-color 0.5s;
             box-sizing: border-box;
         }
@@ -33,16 +33,11 @@
             margin-bottom: 10px;
             transition: color 0.5s;
         }
-        h2 {
-            font-size: 14px;
-            text-align: center;
-            color: #4b0082; /* Indigo text */
-            margin-bottom: 10px;
-            transition: color 0.5s;
-        }
         .toggle-container {
-            text-align: right;
-            margin: 15px 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 15px;
         }
         .toggle-label {
             margin-right: 10px;
@@ -138,6 +133,7 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid #ececec;
             transition: background-color 0.5s;
+            position: relative;
         }
         .output p {
             margin: 8px 0;
@@ -151,12 +147,14 @@
         .highlight-red {
             color: #ff4500;
         }
+        .minus-highlight {
+            color: #008000;
+        }
     </style>
 </head>
 <body>
     <div class="calculator-container">
         <h1 id="mainTitle">FY2025-26 Income Tax Calculator</h1>
-        <h2 id="caption">Based on new tax regime. More options coming soon!</h2>
         <form id="taxForm">
             <label for="income" id="incomeLabel">Annual Gross Salary<span class="asterisk">*</span>:</label>
             <input type="number" id="income" required>
@@ -166,9 +164,9 @@
 
         <div class="output" id="results">
             <p id="totalIncomeLabel">Total Annual Income: <span id="totalIncome"></span></p>
-            <p id="standardDeductionLabel">Standard Deduction: <span id="standardDeduction"></span></p>
+            <p id="standardDeductionLabel">Standard Deduction: <span id="standardDeduction" class="minus-highlight"></span></p>
             <p id="taxLiabilityLabel">Tax Liability: <span id="taxLiability" class="highlight-red"></span></p>
-            <p id="taxRebateLabel">Tax Rebate: <span id="taxRebate"></span></p>
+            <p id="taxRebateLabel">Tax Rebate: <span id="taxRebate" class="minus-highlight"></span></p>
             <p id="cessLabel">Health and Education Cess: <span id="cess" class="highlight-red"></span></p>
             <p id="surchargeLabel">Tax Surcharge: <span id="surcharge" class="highlight-red"></span></p>
             <p id="totalTaxLabel">Total Tax Payable: <span id="totalTax" class="highlight-red"></span></p>
@@ -247,9 +245,9 @@
 
         function displayResults(income, standardDeduction, taxLiability, taxRebate, cess, surcharge, totalTax) {
             document.getElementById('totalIncome').innerText = income.toFixed(2);
-            document.getElementById('standardDeduction').innerText = standardDeduction.toFixed(2);
+            document.getElementById('standardDeduction').innerText = '-' + standardDeduction.toFixed(2);
             document.getElementById('taxLiability').innerText = (taxLiability + taxRebate).toFixed(2);
-            document.getElementById('taxRebate').innerText = taxRebate.toFixed(2);
+            document.getElementById('taxRebate').innerText = '-' + taxRebate.toFixed(2);
             document.getElementById('cess').innerText = cess.toFixed(2);
             document.getElementById('surcharge').innerText = surcharge.toFixed(2);
             document.getElementById('totalTax').innerText = totalTax.toFixed(2);
@@ -258,12 +256,10 @@
         function toggleLingo() {
             const toggleState = document.getElementById('lingoToggle').checked;
 
-            document.body.style.backgroundColor = toggleState ? '#e0bbe4' : '#e6e6fa'; // Light lavender vs brighter lavender
+            document.body.style.backgroundColor = toggleState ? '#e0bbe4' : '#e6e6fa';
             document.body.style.color = toggleState ? '#4b0082' : '#333';
             document.querySelector('.calculator-container').style.backgroundColor = toggleState ? '#dcd6f7' : '#f8f8ff';
             document.querySelector('.calculator-container').style.borderColor = toggleState ? '#a39193' : '#c6a3cc';
-            document.querySelector('h1').style.color = toggleState ? '#5c3d5e' : '#4b0082';
-            document.querySelector('h2').style.display = toggleState ? 'none' : 'block'; // Hide caption in GenZ mode
             document.getElementById('mainTitle').textContent = toggleState
                 ? 'Savage Tool'
                 : 'FY2025-26 Income Tax Calculator';
