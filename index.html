@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>FY2025-26 Income Tax Calculator</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e6e6fa; /* Lavender background */
+            background-color: #e6e6fa;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -16,54 +17,70 @@
             height: 100vh;
             transition: background-color 0.5s, color 0.5s;
         }
+
         .calculator-container {
-            width: 500px; /* Extended width */
-            background-color: #f8f8ff; /* GhostWhite background */
+            width: 500px;
+            background-color: #f8f8ff;
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            border: 2px solid #c6a3cc; /* Light Lavender border */
+            border: 2px solid #c6a3cc;
             padding: 25px 20px;
             transition: background-color 0.5s, border-color 0.5s;
             box-sizing: border-box;
         }
+
         h1 {
             font-size: 22px;
             text-align: center;
-            color: #4b0082; /* Indigo text */
+            color: #4b0082;
+            margin-bottom: 5px;
+            transition: color 0.5s;
+        }
+
+        h2 {
+            font-size: 12px;
+            text-align: center;
+            color: #4b0082;
             margin-bottom: 10px;
             transition: color 0.5s;
         }
+
         .toggle-container {
             display: flex;
             justify-content: flex-end;
             align-items: center;
             margin-top: 15px;
         }
+
         .toggle-label {
             margin-right: 10px;
             font-weight: bold;
-            color: #4b0082; /* Indigo text */
+            color: #9370db;
             transition: color 0.5s;
         }
+
         .toggle {
             display: inline-block;
             width: 50px;
             height: 26px;
             position: relative;
         }
+
         .toggle input {
             display: none;
         }
+
         .toggle-switch {
             position: absolute;
             cursor: pointer;
-            background-color: #c6a3cc; /* Light Lavender for switch */
+            background-color: #c6a3cc;
             border-radius: 26px;
             transition: 0.4s;
             width: 100%;
             height: 100%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
+
         .toggle-switch:before {
             content: '';
             position: absolute;
@@ -75,27 +92,34 @@
             left: 1px;
             transition: 0.4s;
         }
-        input:checked + .toggle-switch {
-            background-color: #9370db; /* Medium Purple */
+
+        input:checked+.toggle-switch {
+            background-color: #9370db;
         }
-        input:checked + .toggle-switch:before {
+
+        input:checked+.toggle-switch:before {
             transform: translateX(24px);
         }
+
         form {
             margin-bottom: 15px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
             font-size: 14px;
-            color: #4b0082; /* Indigo text */
+            color: #4b0082;
             transition: color 0.5s;
         }
+
         .asterisk {
-            color: #8a2be2; /* BlueViolet asterisk */
+            color: #8a2be2;
         }
-        input[type="text"], input[type="number"] {
+
+        input[type="text"],
+        input[type="number"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -105,15 +129,18 @@
             transition: border-color 0.2s, background-color 0.5s;
             font-size: 14px;
         }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #9370db; /* Medium Purple on focus */
-            background-color: #ffffff; /* White background */
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #9370db;
+            background-color: #ffffff;
         }
+
         button {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #4b0082; /* Indigo button */
+            background-color: #4b0082;
             color: #fff;
             border: none;
             border-radius: 6px;
@@ -122,39 +149,47 @@
             transition: background-color 0.3s;
             margin-bottom: 10px;
         }
+
         button:hover {
-            background-color: #8a2be2; /* BlueViolet hover */
+            background-color: #8a2be2;
         }
+
         .output {
             margin-top: 10px;
             padding: 10px;
-            background-color: #f0f8ff; /* AliceBlue background */
+            background-color: #f0f8ff;
             border-radius: 10px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid #ececec;
             transition: background-color 0.5s;
             position: relative;
         }
+
         .output p {
             margin: 8px 0;
             font-size: 14px;
             padding: 4px;
             background-color: transparent;
         }
+
         .output span {
             font-weight: bold;
         }
+
         .highlight-red {
             color: #ff4500;
         }
+
         .minus-highlight {
             color: #008000;
         }
     </style>
 </head>
+
 <body>
     <div class="calculator-container">
         <h1 id="mainTitle">FY2025-26 Income Tax Calculator</h1>
+        <h2 id="caption">Based on new tax regime only. More to be added soon.<br>Thanks for being part of this test stage</h2>
         <form id="taxForm">
             <label for="income" id="incomeLabel">Annual Gross Salary<span class="asterisk">*</span>:</label>
             <input type="number" id="income" required>
@@ -164,7 +199,8 @@
 
         <div class="output" id="results">
             <p id="totalIncomeLabel">Total Annual Income: <span id="totalIncome"></span></p>
-            <p id="standardDeductionLabel">Standard Deduction: <span id="standardDeduction" class="minus-highlight"></span></p>
+            <p id="standardDeductionLabel">Standard Deduction: <span id="standardDeduction"
+                    class="minus-highlight"></span></p>
             <p id="taxLiabilityLabel">Tax Liability: <span id="taxLiability" class="highlight-red"></span></p>
             <p id="taxRebateLabel">Tax Rebate: <span id="taxRebate" class="minus-highlight"></span></p>
             <p id="cessLabel">Health and Education Cess: <span id="cess" class="highlight-red"></span></p>
@@ -274,6 +310,7 @@
             document.getElementById('incomeLabel').textContent = toggleState
                 ? 'Bread*'
                 : 'Annual Gross Salary*';
+            document.getElementById('caption').style.display = toggleState ? 'none' : 'block';
             document.getElementById('totalIncomeLabel').childNodes[0].textContent = toggleState
                 ? 'Delulu bread: '
                 : 'Total Annual Income: ';
@@ -298,4 +335,5 @@
         }
     </script>
 </body>
+
 </html>
