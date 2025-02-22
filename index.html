@@ -17,13 +17,14 @@
             transition: background-color 0.5s, color 0.5s;
         }
         .calculator-container {
-            max-width: 480px;
+            width: 500px; /* Extended width */
             background-color: #f8f8ff; /* GhostWhite background */
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             border: 2px solid #c6a3cc; /* Light Lavender border */
             padding: 25px;
             transition: background-color 0.5s, border-color 0.5s;
+            box-sizing: border-box;
         }
         h1 {
             font-size: 22px;
@@ -41,7 +42,7 @@
         }
         .toggle-container {
             text-align: right;
-            margin-top: 15px;
+            margin: 15px 0;
         }
         .toggle-label {
             margin-right: 10px;
@@ -154,13 +155,13 @@
 </head>
 <body>
     <div class="calculator-container">
-        <h1>FY2025-26 Income Tax Calculator</h1>
-        <h2>Based on new tax regime. More options coming soon!</h2>
+        <h1 id="mainTitle">FY2025-26 Income Tax Calculator</h1>
+        <h2 id="caption">Based on new tax regime. More options coming soon!</h2>
         <form id="taxForm">
             <label for="income" id="incomeLabel">Annual Gross Salary<span class="asterisk">*</span>:</label>
             <input type="number" id="income" required>
 
-            <button type="button" onclick="calculateTax()">Calculate Tax</button>
+            <button type="button" id="calculateButton" onclick="calculateTax()">Calculate Tax</button>
         </form>
 
         <div class="output" id="results">
@@ -262,7 +263,13 @@
             document.querySelector('.calculator-container').style.backgroundColor = toggleState ? '#dcd6f7' : '#f8f8ff';
             document.querySelector('.calculator-container').style.borderColor = toggleState ? '#a39193' : '#c6a3cc';
             document.querySelector('h1').style.color = toggleState ? '#5c3d5e' : '#4b0082';
-            document.querySelector('h2').style.color = toggleState ? '#5c3d5e' : '#4b0082';
+            document.querySelector('h2').style.display = toggleState ? 'none' : 'block'; // Hide caption in GenZ mode
+            document.getElementById('mainTitle').textContent = toggleState
+                ? 'Savage Tool'
+                : 'FY2025-26 Income Tax Calculator';
+            document.getElementById('calculateButton').textContent = toggleState
+                ? 'Guap to Peanuts Glow up'
+                : 'Calculate Tax';
 
             document.getElementById('incomeLabel').textContent = toggleState
                 ? 'Bread*'
