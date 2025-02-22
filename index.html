@@ -182,6 +182,10 @@
     </div>
 
     <script>
+        function formatNumber(number) {
+            return new Intl.NumberFormat('en-IN').format(number);
+        }
+
         function calculateTax() {
             const income = parseFloat(document.getElementById('income').value);
             const standardDeduction = 75000;
@@ -244,13 +248,13 @@
         }
 
         function displayResults(income, standardDeduction, taxLiability, taxRebate, cess, surcharge, totalTax) {
-            document.getElementById('totalIncome').innerText = income.toFixed(2);
-            document.getElementById('standardDeduction').innerText = '-' + standardDeduction.toFixed(2);
-            document.getElementById('taxLiability').innerText = (taxLiability + taxRebate).toFixed(2);
-            document.getElementById('taxRebate').innerText = '-' + taxRebate.toFixed(2);
-            document.getElementById('cess').innerText = cess.toFixed(2);
-            document.getElementById('surcharge').innerText = surcharge.toFixed(2);
-            document.getElementById('totalTax').innerText = totalTax.toFixed(2);
+            document.getElementById('totalIncome').innerText = formatNumber(income);
+            document.getElementById('standardDeduction').innerText = '-' + formatNumber(standardDeduction);
+            document.getElementById('taxLiability').innerText = formatNumber(taxLiability + taxRebate);
+            document.getElementById('taxRebate').innerText = '-' + formatNumber(taxRebate);
+            document.getElementById('cess').innerText = formatNumber(cess);
+            document.getElementById('surcharge').innerText = formatNumber(surcharge);
+            document.getElementById('totalTax').innerText = formatNumber(totalTax);
         }
 
         function toggleLingo() {
