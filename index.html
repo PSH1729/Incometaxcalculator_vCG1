@@ -136,6 +136,7 @@
             const income = parseFloat(document.getElementById('income').value);
             const standardDeduction = 75000; // Standard deduction
             let taxLiability = 0;
+            let taxRebate = 0;
             let surcharge = 0;
 
             // Calculate taxable income
@@ -169,7 +170,14 @@
                 taxLiability += (taxableIncome - 400000) * 0.05;
             }
 
-            const cess = taxLiability * 0.04; // Applying 4% cess
+            // Apply tax rebate if taxable income is below 12 lakhs
+            if (taxableIncome <= 1200000) {
+                taxRebate = taxLiability; 
+                taxLiability = 0; // Final payable tax should be zero
+            }
+
+            const cess = taxLiability * 0.04;
+
             surcharge = calculateSurcharge(income, taxLiability);
 
             const totalTax = taxLiability + cess + surcharge;
@@ -177,7 +185,8 @@
             // Display results
             document.getElementById('totalIncome').innerText = income.toFixed(2);
             document.getElementById('standardDeduction').innerText = standardDeduction.toFixed(2);
-            document.getElementById('taxLiability').innerText = taxLiability.toFixed(2);
+            document.getElementById('taxLiability').innerText = (taxLiability + taxRebate).toFixed(2);
+            document.getElementById('taxRebate').innerText = taxRebate.toFixed(2);
             document.getElementById('cess').innerText = cess.toFixed(2);
             document.getElementById('surcharge').innerText = surcharge.toFixed(2);
             document.getElementById('totalTax').innerText = totalTax.toFixed(2);
