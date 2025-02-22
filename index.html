@@ -33,16 +33,52 @@
             color: #d2691e;
             margin-bottom: 20px;
         }
-        .toggle {
+        .toggle-container {
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #ff4500;
-            color: #fff;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .toggle-label {
+            margin-right: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        .toggle {
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            position: relative;
+        }
+        .toggle input {
+            display: none;
+        }
+        .toggle-switch {
+            position: absolute;
             cursor: pointer;
+            background-color: #ff4500;
+            border-radius: 20px;
+            transition: 0.3s;
+            width: 100%;
+            height: 100%;
+        }
+        .toggle-switch:before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 20px;
+            top: 1px;
+            left: 1px;
+            transition: 0.3s;
+        }
+        input:checked + .toggle-switch {
+            background-color: #555;
+        }
+        input:checked + .toggle-switch:before {
+            transform: translateX(20px);
         }
         form {
             margin-bottom: 30px;
@@ -112,7 +148,13 @@
     <div class="calculator-container">
         <h1>FY2025-26 Income Tax Calculator</h1>
         <h2>Income tax calculator for FY25-26 based on new tax regime only for now. More options to be available soon. Thanks for being part of this testing phase :)</h2>
-        <button class="toggle" onclick="toggleLingo()">Toggle Lingo</button>
+        <div class="toggle-container">
+            <span class="toggle-label">GenZ</span>
+            <label class="toggle">
+                <input type="checkbox" id="lingoToggle" onclick="toggleLingo()">
+                <span class="toggle-switch"></span>
+            </label>
+        </div>
         <form id="taxForm">
             <label for="income" id="incomeLabel">Annual Gross Salary<span class="asterisk">*</span>:</label>
             <input type="number" id="income" required>
@@ -134,7 +176,7 @@
     <script>
         function calculateTax() {
             const income = parseFloat(document.getElementById('income').value);
-            const standardDeduction = 75000;
+            const standardDeduction = 75000; // Standard deduction
             let taxLiability = 0;
             let taxRebate = 0;
             let surcharge = 0;
@@ -168,9 +210,10 @@
                 taxLiability += (taxableIncome - 400000) * 0.05;
             }
 
-            if (taxableIncome <= 1200000) {
+            // Apply tax rebate if taxable income is less than or equal to 12 lakhs
+            if (income - standardDeduction <= 1200000) {
                 taxRebate = taxLiability;
-                taxLiability = 0;
+                taxLiability = 0; // Final payable tax should be zero
             }
 
             const cess = taxLiability * 0.04;
@@ -203,33 +246,32 @@
         }
 
         function toggleLingo() {
-            const toggleState = document.body.getAttribute('data-lingo-toggled') === 'true';
-            document.body.setAttribute('data-lingo-toggled', !toggleState);
+            const toggleState = document.getElementById('lingoToggle').checked;
 
             document.getElementById('incomeLabel').textContent = toggleState
-                ? 'Annual Gross Salary*'
-                : 'Bread*';
+                ? 'Bread*'
+                : 'Annual Gross Salary*';
             document.getElementById('totalIncomeLabel').childNodes[0].textContent = toggleState
-                ? 'Total Annual Income: '
-                : 'Delulu bread: ';
+                ? 'Delulu bread: '
+                : 'Total Annual Income: ';
             document.getElementById('standardDeductionLabel').childNodes[0].textContent = toggleState
-                ? 'Standard Deduction: '
-                : 'Green flag: ';
+                ? 'Green flag: '
+                : 'Standard Deduction: ';
             document.getElementById('taxLiabilityLabel').childNodes[0].textContent = toggleState
-                ? 'Tax Liability: '
-                : 'Red flag: ';
+                ? 'Red flag: '
+                : 'Tax Liability: ';
             document.getElementById('taxRebateLabel').childNodes[0].textContent = toggleState
-                ? 'Tax Rebate: '
-                : 'Green flag Lit: ';
+                ? 'Green flag Lit: '
+                : 'Tax Rebate: ';
             document.getElementById('cessLabel').childNodes[0].textContent = toggleState
-                ? 'Cess: '
-                : 'Extra: ';
+                ? 'Extra: '
+                : 'Cess: ';
             document.getElementById('surchargeLabel').childNodes[0].textContent = toggleState
-                ? 'Rich Tax (Surcharge): '
-                : 'Super extra: ';
+                ? 'Super extra: '
+                : 'Rich Tax (Surcharge): ';
             document.getElementById('totalTaxLabel').childNodes[0].textContent = toggleState
-                ? 'Total Tax Payable: '
-                : 'Savage: ';
+                ? 'Savage: '
+                : 'Total Tax Payable: ';
         }
     </script>
 </body>
