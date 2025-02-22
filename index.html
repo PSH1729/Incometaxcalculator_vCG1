@@ -170,12 +170,11 @@
                 taxLiability += (taxableIncome - 400000) * 0.05;
             }
 
-            // Apply tax rebate if taxable income is below 12 lakhs
-            if (taxableIncome <= 1200000) {
-                taxRebate = taxLiability; 
+             // Apply tax rebate if taxable income is less than or equal to 12 lakhs
+            if (income - standardDeduction <= 1200000) {
+                taxRebate = taxLiability;
                 taxLiability = 0; // Final payable tax should be zero
             }
-
             const cess = taxLiability * 0.04;
 
             surcharge = calculateSurcharge(income, taxLiability);
