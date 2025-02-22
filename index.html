@@ -10,35 +10,34 @@
             color: #333;
             margin: 0;
             padding: 20px;
-            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .calculator-container {
-            max-width: 600px;
-            margin: 60px auto;
-            padding: 30px;
+            max-width: 500px;
             background-color: #ffebcd;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border: 2px solid #ffa07a;
+            padding: 20px;
         }
         h1 {
-            font-size: 24px;
+            font-size: 20px;
             text-align: center;
             color: #d2691e;
             margin-bottom: 10px;
         }
         h2 {
-            font-size: 16px;
+            font-size: 14px;
             text-align: center;
             color: #d2691e;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .toggle-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
+            text-align: center;
+            margin-bottom: 10px;
         }
         .toggle-label {
             margin-right: 10px;
@@ -81,25 +80,27 @@
             transform: translateX(20px);
         }
         form {
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #a0522d;
+            font-size: 14px;
         }
         .asterisk {
             color: #ff4500;
         }
         input[type="text"], input[type="number"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 8px;
+            margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-sizing: border-box;
             transition: border-color 0.2s;
+            font-size: 14px;
         }
         input[type="text"]:focus, input[type="number"]:focus {
             border-color: #ff7f50;
@@ -107,7 +108,7 @@
         button {
             display: block;
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: #ff4500;
             color: #fff;
             border: none;
@@ -115,23 +116,23 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-bottom: 10px;
         }
         button:hover {
             background-color: #e63946;
         }
         .output {
-            margin-top: 20px;
-            padding: 20px;
+            margin-top: 10px;
+            padding: 10px;
             background-color: #f0ffff;
             border-radius: 10px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid #ececec;
         }
         .output p {
-            margin: 12px 0;
-            font-size: 16px;
-            line-height: 1.5;
-            padding: 8px;
+            margin: 8px 0;
+            font-size: 14px;
+            padding: 4px;
             background-color: #ffffff;
             border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -147,7 +148,7 @@
 <body>
     <div class="calculator-container">
         <h1>FY2025-26 Income Tax Calculator</h1>
-        <h2>Income tax calculator for FY25-26 based on new tax regime only for now. More options to be available soon. Thanks for being part of this testing phase :)</h2>
+        <h2>Based on new tax regime. More options coming soon!</h2>
         <div class="toggle-container">
             <span class="toggle-label">GenZ</span>
             <label class="toggle">
