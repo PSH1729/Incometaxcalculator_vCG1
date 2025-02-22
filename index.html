@@ -40,8 +40,8 @@
             transition: color 0.5s;
         }
         .toggle-container {
-            text-align: center;
-            margin-bottom: 15px;
+            text-align: right;
+            margin-top: 15px;
         }
         .toggle-label {
             margin-right: 10px;
@@ -156,13 +156,6 @@
     <div class="calculator-container">
         <h1>FY2025-26 Income Tax Calculator</h1>
         <h2>Based on new tax regime. More options coming soon!</h2>
-        <div class="toggle-container">
-            <span class="toggle-label" id="genZTitle">GenZ</span>
-            <label class="toggle">
-                <input type="checkbox" id="lingoToggle" onclick="toggleLingo()">
-                <span class="toggle-switch"></span>
-            </label>
-        </div>
         <form id="taxForm">
             <label for="income" id="incomeLabel">Annual Gross Salary<span class="asterisk">*</span>:</label>
             <input type="number" id="income" required>
@@ -175,9 +168,17 @@
             <p id="standardDeductionLabel">Standard Deduction: <span id="standardDeduction"></span></p>
             <p id="taxLiabilityLabel">Tax Liability: <span id="taxLiability" class="highlight-red"></span></p>
             <p id="taxRebateLabel">Tax Rebate: <span id="taxRebate"></span></p>
-            <p id="cessLabel">Cess: <span id="cess" class="highlight-red"></span></p>
-            <p id="surchargeLabel">Rich Tax (Surcharge): <span id="surcharge" class="highlight-red"></span></p>
+            <p id="cessLabel">Health and Education Cess: <span id="cess" class="highlight-red"></span></p>
+            <p id="surchargeLabel">Tax Surcharge: <span id="surcharge" class="highlight-red"></span></p>
             <p id="totalTaxLabel">Total Tax Payable: <span id="totalTax" class="highlight-red"></span></p>
+
+            <div class="toggle-container">
+                <span class="toggle-label" id="genZTitle">GenZ</span>
+                <label class="toggle">
+                    <input type="checkbox" id="lingoToggle" onclick="toggleLingo()">
+                    <span class="toggle-switch"></span>
+                </label>
+            </div>
         </div>
     </div>
 
@@ -280,10 +281,10 @@
                 : 'Tax Rebate: ';
             document.getElementById('cessLabel').childNodes[0].textContent = toggleState
                 ? 'Extra: '
-                : 'Cess: ';
+                : 'Health and Education Cess: ';
             document.getElementById('surchargeLabel').childNodes[0].textContent = toggleState
                 ? 'Super extra: '
-                : 'Rich Tax (Surcharge): ';
+                : 'Tax Surcharge: ';
             document.getElementById('totalTaxLabel').childNodes[0].textContent = toggleState
                 ? 'Savage: '
                 : 'Total Tax Payable: ';
