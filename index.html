@@ -14,40 +14,43 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            transition: background-color 0.5s, color 0.5s;
         }
         .calculator-container {
-            max-width: 500px;
-            background-color: #ffebcd;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid #ffa07a;
-            padding: 20px;
+            max-width: 480px;
+            background-color: #f8f8ff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #9370db;
+            padding: 25px;
+            transition: background-color 0.5s, border-color 0.5s;
         }
         h1 {
-            font-size: 20px;
+            font-size: 22px;
             text-align: center;
-            color: #d2691e;
+            color: #4b0082;
             margin-bottom: 10px;
+            transition: color 0.5s;
         }
         h2 {
             font-size: 14px;
             text-align: center;
-            color: #d2691e;
+            color: #4b0082;
             margin-bottom: 10px;
+            transition: color 0.5s;
         }
         .toggle-container {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .toggle-label {
             margin-right: 10px;
-            color: #333;
             font-weight: bold;
         }
         .toggle {
             display: inline-block;
-            width: 40px;
-            height: 20px;
+            width: 50px;
+            height: 26px;
             position: relative;
         }
         .toggle input {
@@ -56,28 +59,29 @@
         .toggle-switch {
             position: absolute;
             cursor: pointer;
-            background-color: #ff4500;
-            border-radius: 20px;
-            transition: 0.3s;
+            background-color: #9370db;
+            border-radius: 26px;
+            transition: 0.4s;
             width: 100%;
             height: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .toggle-switch:before {
             content: '';
             position: absolute;
-            width: 18px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
             background-color: white;
-            border-radius: 20px;
+            border-radius: 50%;
             top: 1px;
             left: 1px;
-            transition: 0.3s;
+            transition: 0.4s;
         }
         input:checked + .toggle-switch {
-            background-color: #555;
+            background-color: #ff69b4;
         }
         input:checked + .toggle-switch:before {
-            transform: translateX(20px);
+            transform: translateX(24px);
         }
         form {
             margin-bottom: 15px;
@@ -86,11 +90,11 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #a0522d;
             font-size: 14px;
+            transition: color 0.5s;
         }
         .asterisk {
-            color: #ff4500;
+            color: #c71585;
         }
         input[type="text"], input[type="number"] {
             width: 100%;
@@ -99,43 +103,43 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             box-sizing: border-box;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, background-color 0.5s;
             font-size: 14px;
         }
         input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #ff7f50;
+            border-color: #9370db;
+            background-color: #f0f8ff;
         }
         button {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #ff4500;
+            background-color: #4b0082;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
             margin-bottom: 10px;
         }
         button:hover {
-            background-color: #e63946;
+            background-color: #8a2be2;
         }
         .output {
             margin-top: 10px;
             padding: 10px;
-            background-color: #f0ffff;
+            background-color: #f0fff0;
             border-radius: 10px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid #ececec;
+            transition: background-color 0.5s;
         }
         .output p {
             margin: 8px 0;
             font-size: 14px;
             padding: 4px;
-            background-color: #ffffff;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            background-color: transparent;
         }
         .output span {
             font-weight: bold;
@@ -150,7 +154,7 @@
         <h1>FY2025-26 Income Tax Calculator</h1>
         <h2>Based on new tax regime. More options coming soon!</h2>
         <div class="toggle-container">
-            <span class="toggle-label">GenZ</span>
+            <span class="toggle-label" id="genZTitle">GenZ</span>
             <label class="toggle">
                 <input type="checkbox" id="lingoToggle" onclick="toggleLingo()">
                 <span class="toggle-switch"></span>
@@ -177,7 +181,7 @@
     <script>
         function calculateTax() {
             const income = parseFloat(document.getElementById('income').value);
-            const standardDeduction = 75000; // Standard deduction
+            const standardDeduction = 75000;
             let taxLiability = 0;
             let taxRebate = 0;
             let surcharge = 0;
@@ -248,6 +252,13 @@
 
         function toggleLingo() {
             const toggleState = document.getElementById('lingoToggle').checked;
+
+            document.body.style.backgroundColor = toggleState ? '#ffd700' : '#ffffff';
+            document.body.style.color = toggleState ? '#000' : '#333';
+            document.querySelector('.calculator-container').style.backgroundColor = toggleState ? '#ffdead' : '#f8f8ff';
+            document.querySelector('.calculator-container').style.borderColor = toggleState ? '#cd853f' : '#9370db';
+            document.querySelector('h1').style.color = toggleState ? '#8b4513' : '#4b0082';
+            document.querySelector('h2').style.color = toggleState ? '#8b4513' : '#4b0082';
 
             document.getElementById('incomeLabel').textContent = toggleState
                 ? 'Bread*'
